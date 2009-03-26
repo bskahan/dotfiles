@@ -1,0 +1,17 @@
+# no annoying audible bell, please
+vbell on
+
+# detach on hangup
+autodetach on
+
+defutf8 on
+
+# don't display the copyright page
+startup_message off
+
+screen -t main 0
+screen -t work 1
+screen -t irc 2
+
+hardstatus alwayslastline                                        
+hardstatus string '%{gk}[ %{G}%H %{g}][%= %{wk}%?%-Lw%?%{=b kR}(%{W}%n*%f %t%?(%u)%?%{=b kR})%{= kw}%?%+Lw%?%?%= %{g}][%{Y}%l%{g}]%{=b C}[ %m/%d %c %]%{W}'

@@ -1,230 +1,122 @@
-#setenv MAGICK_HOME /usr/local/ImageMagick-6.4.8
-#setenv DYLD_LIBRARY_PATH /usr/local/ImageMagick-6.4.8/
-#setenv PATH $PATH:$MAGICK_HOME/bin
+# If you come from bash you might have to change your $PATH.
+export PATH="$HOME/bin:$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:$PATH"
 
-export LC_CTYPE=en_US.UTF-8
-export PATH="/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/Library/Frameworks/Python.framework/Versions/2.4/bin:$PATH"
-export EDITOR='mate -w'
+# Path to your oh-my-zsh installation.
+export ZSH="/Users/bskahan/.oh-my-zsh"
 
-#/usr/bin/keychain
-#source ~/.keychain/host248-sh > /dev/null
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+# ZSH_THEME="robbyrussell"
+ZSH_THEME="bskahan"
 
-#{{{ Variables-----------------------------------------------
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
-#source /etc/profile.env
-# source profile like .bashrc
-#if [ -f /etc/profile ]; then
-#	source /etc/profile
-#fi
-export LESS=-cex3M
-HISTSIZE=1000
-SAVEHIST=1000
-HISTFILE=~/.history
-DIRSTACKSIZE=20
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
 
-watch=(notme)                   # watch for everybody but me
-LOGCHECK=300                    # check every 5 min for login/logout activity
-WATCHFMT='%n %a %l from %m at %t.'
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
 
-cdpath=(.. ~)
-manpath=($X11HOME/man /usr/man /usr/lang/man /usr/local/man)
-export MANPATH
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
 
-# Hosts to use for completion (see later zstyle)
-hosts=(`hostname`
-	brian.digitalpulp.com
-	nixon.digitalpulp.com
-	digitalpulp.com
-	etria.com)
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
 
-users=(`whoami`
-	bskahan
-	root)
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
 
-# Shell functions
-setenv() { typeset -x "${1}${1:+=}${(@)argv[2,$#]}" }  # csh compatibility
-freload() { while (( $# )); do; unfunction $1; autoload -U $1; shift; done }
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS=true
 
-# Where to look for autoloaded function definitions
-fpath=($fpath ~/.zfunc)
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
 
-# Autoload all shell functions from all directories in $fpath (following
-# symlinks) that have the executable bit on (the executable bit is not
-# necessary, but gives you an easy way to stop the autoloading of a
-# particular shell function). $fpath should not be empty for this to work.
-for func in $^fpath/*(N-.x:t); autoload $func
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
 
-# automatically remove duplicates from these arrays
-typeset -U path cdpath fpath manpath
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
 
-#}}}-------------------------------------------------------
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
 
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
 
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
 
-#{{{ Settings-----------------------------------------------
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Use hard limits, except for a smaller stack and no core dumps
-unlimit
-limit stack 8192
-limit core 0
-limit -s
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(
+    django
+    git
+    git-prompt
+    gnu-utils
+    jira
+    npm
+    pip
+    screen
+    ssh-agent
+    themes
+    virtualenv
+    virtualenvwrapper
+    z
+)
 
-umask 022
+# Plugin Specific settings
+zstyle :omz:plugins:ssh-agent agent-forwarding on
 
-setopt 	nobeep 			\
-	csh_junkie_history 	\
-	inc_append_history 	\
-	prompt_subst 		\
-   	notify 			\
-	globdots 		\
-	correct 		\
-	pushdtohome 		\
-	cdablevars 		\
-	autolist 		\
-	correctall 		\
-	autocd 			\
-	recexact 		\
-	longlistjobs 		\
-	autoresume 		\
-	histignoredups 		\
-	pushdsilent 		\
-	noclobber 		\
-	autopushd 		\
-	pushdminus 		\
-	extendedglob 		\
-	rcquotes 		\
-	mailwarning
+source $ZSH/oh-my-zsh.sh
 
-unsetopt bgnice 		\
-	 autoparamslash
+# User configuration
 
-# Setup new style completion system. To see examples of the old style (compctl
-# based) programmable completion, check Misc/compctl-examples in the zsh
-# distribution.
-autoload -U compinit
-compinit
+# export MANPATH="/usr/local/man:$MANPATH"
 
-# Completion Styles
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
 
-# list of completers to use
-zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
+# Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then export EDITOR='vim'
+else
+  export EDITOR='mvim'
+fi
 
-# allow one error for every three characters typed in approximate completer
-zstyle -e ':completion:*:approximate:*' max-errors \
-    'reply=( $(( ($#PREFIX+$#SUFFIX)/3 )) numeric )'
-    
-# insert all expansions for expand completer
-zstyle ':completion:*:expand:*' tag-order all-expansions
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
 
-# formatting and messages
-zstyle ':completion:*' verbose yes
-zstyle ':completion:*:descriptions' format '%B%d%b'
-zstyle ':completion:*:messages' format '%d'
-zstyle ':completion:*:warnings' format 'No matches for: %d'
-zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
-zstyle ':completion:*' group-name ''
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias ls="ls --color=auto"
+alias gh="less ~/.oh-my-zsh/plugins/git/README.md"
 
-# match uppercase from lowercase
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-
-# offer indexes before parameters in subscripts
-zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
-
-# command for process lists, the local web server details and host completion
-#zstyle ':completion:*:processes' command 'ps -o pid,s,nice,stime,args'
-#zstyle ':completion:*:urls' local 'www' '/var/www/htdocs' 'public_html'
-zstyle '*' hosts $hosts
-zstyle '*' users $users
-
-zstyle '*ssh*' hosts $(sed -e '/^#/d
-s/ .*$//
-s/,/ /g' ~/.ssh/known_hosts)
-
-# Filename suffixes to ignore during completion (except after rm command)
-zstyle ':completion:*:*:(^rm):*:*files' ignored-patterns '*?.o' '*?.c~' \
-    '*?.old' '*?.pro'
-# the same for old style completion
-#fignore=(.o .c~ .old .pro)
-
-# ignore completion functions (until the _ignored completer)
-zstyle ':completion:*:functions' ignored-patterns '_*'
-
-#}}}-------------------------------------------------------
-
-
-
-#{{{ Aliases-----------------------------------------------
-
-alias ls='gls -F --color=auto'
-alias rm='rm -i'
-alias vim='nocorrect vim'
-alias mate='nocorrect mate'
-alias touch='nocorrect touch'
-alias mv='nocorrect mv -i'    # no spelling correction on mv
-alias cp='nocorrect cp'       # no spelling correction on cp
-alias mkdir='nocorrect mkdir' # no spelling correction on mkdir
-alias j=jobs
-alias pu=pushd
-alias po=popd
-alias d='dirs -v'
-alias h=history
-alias grep=egrep
-alias ll='ls -l'
-alias la='ls -a'
-alias info='pinfo'
-
-# List only directories and symbolic
-# links that point to directories
-alias lsd='ls -ld *(-/DN)'
-
-# List only file beginning with "."
-alias lsa='ls -ld .*'
-
-# Global aliases -- These do not have to be
-# at the beginning of the command line.
-alias -g M='|more'
-alias -g H='|head'
-alias -g T='|tail'
-
-#}}}-------------------------------------------------------
-
-
-
-#{{{ Prompt------------------------------------------------
-
-#source /usr/share/zsh/4.0.6/functions/Prompts/promptinit
-autoload -U promptinit
-promptinit
-prompt suse
-
-#}}}-------------------------------------------------------
-
-
-
-#{{{ Key Bindings------------------------------------------
-
-# Some nice key bindings
-#bindkey '^X^Z' universal-argument ' ' magic-space
-#bindkey '^X^A' vi-find-prev-char-skip
-#bindkey '^Xa' _expand_alias
-#bindkey '^Z' accept-and-hold
-#bindkey -s '\M-/' \\\\
-#bindkey -s '\M-=' \|
-
-bindkey -v               # vi key bindings
-
-#bindkey -e                 # emacs key bindings
-bindkey ' ' magic-space    # also do history expansion on space
-bindkey '^I' complete-word # complete on tab, leave expansion to _expand
-
-#}}}-------------------------------------------------------
-
-
-
-#{{{ Directory Colors--------------------------------------
-
-LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jpg=01;35:*.gif=01;35:*.bmp=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.png=01;35:*.mpg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:'
-
-export LS_COLORS
-
-#}}}-------------------------------------------------------
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
